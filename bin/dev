@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+def main(run)
+
+
+  if run  == '--build'
+    Dir.chdir('opencv_server') do
+      system("./rebuild.sh")
+      exit
+    end
+  end
+
+  pids = []
+  Dir.chdir('opencv_server') do
+    pids.push spawn("./Server")
+  end
+
+  Dir.chdir('server') do
+    system "rails s"
+  end
+  
+  pids.each do |pid|
+    puts "Stopping watcher #{pid}"
+    Process.kill(:TERM, pid)
+    Process.wait(pid)
+  end
+end
+
+only_run  = ARGV.shift
+main(only_run)

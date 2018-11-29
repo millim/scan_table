@@ -1,0 +1,27 @@
+<%= form_tag '/home', :multipart => true do |f| %>
+  <input type="file" name="picture_image" accept="image/*" capture="camera">
+  <button type="submit">上传</button>
+<% end %>
+<% if @momo %>
+  <% if @momo['code'] == 0%>
+    <% rows = 0%>
+    <% @momo['rows'].times do |number| %>
+      <% if number % 2 == 1 %>
+          <% rows = rows + 1 %>
+          <label>第<%= rows %>行</label>
+          <div>
+            <% @momo["row_#{number}"].each do |cell| %>
+                <% if cell["chars"][0] == "V" && cell["probs"][0] > 0.7%>
+                  [/]
+                <% else %>
+                  [<%= cell["chars"].join(',') %>]
+                <% end %>
+            <% end %>
+          </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= @momo['error']%>
+  <% end %>
+
+<% end %>
