@@ -1,0 +1,20 @@
+.vscode
+#rails folder
+server/.bundle
+server/log/*
+server/tmp/*
+!server/log/.keep
+!server/tmp/.keep
+server/.byebug_history
+server/uploads
+#opencv
+*.a
+opencv_server/demo/Demo
+opencv_server/Server
+opencv_server/src/*
+opencv_server/model/*
+include
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Makefile
